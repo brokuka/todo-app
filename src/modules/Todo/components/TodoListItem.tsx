@@ -39,17 +39,19 @@ const TodoListItem: React.FC<Props> = ({ id, value, checked }): JSX.Element => {
   const onEdit = () => {
     inputRef.current?.focus();
 
-    if (inputValue.trim() !== value.trim() && inputValue.length) {
-      dispatch(updateTodo({ id, value: inputValue, checked: isChecked }));
-      toast.success(TODO_MESSAGES.UPDATE);
-    }
-
-    if (!inputValue.length) {
+    if (!inputValue.trim().length) {
       return toast.error(TODO_MESSAGES.NON_EMPTY);
     }
 
     setEditing(!isEditing);
     setValue((value) => value.trim());
+
+    if (inputValue.trim() !== value.trim() && inputValue.trim().length) {
+      dispatch(
+        updateTodo({ id, value: inputValue.trim(), checked: isChecked })
+      );
+      toast.success(TODO_MESSAGES.UPDATE);
+    }
   };
 
   const onSubmit = (e: FormEvent) => {

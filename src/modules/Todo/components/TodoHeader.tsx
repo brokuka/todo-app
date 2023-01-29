@@ -14,6 +14,10 @@ const TodoHeader: React.FC = (): JSX.Element => {
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
 
+    if (!value.trim().length) {
+      return toast.error(TODO_MESSAGES.NON_EMPTY);
+    }
+
     dispatch(
       createTodo({
         id: window.crypto.randomUUID(),

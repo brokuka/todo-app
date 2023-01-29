@@ -12,6 +12,7 @@ const Todo: React.FC = (): JSX.Element => {
     const todos = window.localStorage.getItem("todos");
 
     if (todos) {
+      console.log(JSON.parse(todos));
       dispatch(readTodo(JSON.parse(todos)));
     }
   }, []);

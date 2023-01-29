@@ -7,6 +7,8 @@ const TodoBody: React.FC = (): JSX.Element => {
   const { data } = useAppSelector(selectTodo);
   const [parent] = useAutoAnimate<HTMLUListElement>();
 
+  // console.log(data.map(({ value }) => value.trim()));
+
   return (
     <div>
       <ul ref={parent} className="flex flex-col gap-2">
