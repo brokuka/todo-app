@@ -85,9 +85,11 @@ const TodoListItem: React.FC<Props> = ({ id, value, checked }): JSX.Element => {
   };
 
   const onRestoreValue = (e: any) => {
-    if (parent.current?.contains(e.target) || !isEditing) return;
+    if (parent.current?.contains(e.target) || !isEditing || inputValue.length)
+      return;
 
     setValue(value);
+    setEditing(false);
   };
 
   useEffect(() => {
