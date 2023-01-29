@@ -39,10 +39,8 @@ const TodoListItem: React.FC<Props> = ({ id, value, checked }): JSX.Element => {
   const onEdit = () => {
     inputRef.current?.focus();
 
-    if (inputValue !== value && inputValue.length) {
-      dispatch(
-        updateTodo({ id, value: inputValue.trim(), checked: isChecked })
-      );
+    if (inputValue.trim() !== value.trim() && inputValue.length) {
+      dispatch(updateTodo({ id, value: inputValue, checked: isChecked }));
       toast.success(TODO_MESSAGES.UPDATE);
     }
 
