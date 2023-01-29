@@ -15,7 +15,11 @@ const TodoHeader: React.FC = (): JSX.Element => {
     e.preventDefault();
 
     dispatch(
-      createTodo({ id: window.crypto.randomUUID(), value, checked: false })
+      createTodo({
+        id: window.crypto.randomUUID(),
+        value: value.trim(),
+        checked: false,
+      })
     );
     setValue("");
     toast.success(TODO_MESSAGES.CREATE);
@@ -30,7 +34,7 @@ const TodoHeader: React.FC = (): JSX.Element => {
   return (
     <form className="flex gap-10 items-center" onSubmit={onSubmit}>
       <TextField
-        value={value.trimStart()}
+        value={value}
         onChange={(e) => setValue(e.target.value)}
         className="w-full"
         placeholder="Example: watch favorite tv series"

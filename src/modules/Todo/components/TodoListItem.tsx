@@ -40,8 +40,9 @@ const TodoListItem: React.FC<Props> = ({ id, value, checked }): JSX.Element => {
     inputRef.current?.focus();
 
     if (inputValue !== value && inputValue.length) {
-      inputValue.trim();
-      dispatch(updateTodo({ id, value: inputValue, checked: isChecked }));
+      dispatch(
+        updateTodo({ id, value: inputValue.trim(), checked: isChecked })
+      );
       toast.success(TODO_MESSAGES.UPDATE);
     }
 
@@ -50,6 +51,7 @@ const TodoListItem: React.FC<Props> = ({ id, value, checked }): JSX.Element => {
     }
 
     setEditing(!isEditing);
+    setValue((value) => value.trim());
   };
 
   const onSubmit = (e: FormEvent) => {
@@ -80,7 +82,7 @@ const TodoListItem: React.FC<Props> = ({ id, value, checked }): JSX.Element => {
     }
 
     setChecked(boolean);
-    dispatch(updateTodo({ id, value: inputValue, checked: boolean }));
+    dispatch(updateTodo({ id, value: inputValue.trim(), checked: boolean }));
     toast.success(TODO_MESSAGES.UPDATE);
   };
 
@@ -111,9 +113,7 @@ const TodoListItem: React.FC<Props> = ({ id, value, checked }): JSX.Element => {
           })}
           type="text"
           readOnly={!isEditing}
-          onChange={(e) =>
-            setValue(e.target.value.replace(/^[ \t]+|[ \t]+$/gm, ""))
-          }
+          onChange={(e) => setValue(e.target.value)}
           value={inputValue}
           ref={inputRef}
         />
