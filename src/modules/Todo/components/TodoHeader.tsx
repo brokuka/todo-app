@@ -30,12 +30,12 @@ const TodoHeader: React.FC = (): JSX.Element => {
   return (
     <form className="flex gap-10 items-center" onSubmit={onSubmit}>
       <TextField
-        value={value}
+        value={value.trimStart()}
         onChange={(e) => setValue(e.target.value)}
         className="w-full"
         placeholder="Example: watch favorite tv series"
       />
-      <Button type="submit" disabled={!value}>
+      <Button type="submit" disabled={!value.length}>
         Create
       </Button>
     </form>

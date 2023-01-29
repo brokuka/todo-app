@@ -1,5 +1,12 @@
 import cn from "classnames";
-import { FormEvent, useEffect, useRef, useState } from "react";
+import {
+  FormEvent,
+  MouseEvent,
+  MouseEventHandler,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import toast from "react-hot-toast";
 import IconButton from "../../../components/IconButton";
 import { useAppDispatch, useAppSelector } from "../../../hooks/store";
@@ -27,6 +34,7 @@ const TodoListItem: React.FC<Props> = ({ id, value, checked }): JSX.Element => {
   const [inputValue, setValue] = useState<string>(value);
   const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const parent = useRef<HTMLLIElement | null>(null);
 
   const onEdit = () => {
     inputRef.current?.focus();
@@ -67,16 +75,34 @@ const TodoListItem: React.FC<Props> = ({ id, value, checked }): JSX.Element => {
   };
 
   const onComplete = (boolean: boolean) => {
+    if (!inputValue.length) {
+      return toast.error(TODO_MESSAGES.NON_EMPTY);
+    }
+
     setChecked(boolean);
     dispatch(updateTodo({ id, value: inputValue, checked: boolean }));
     toast.success(TODO_MESSAGES.UPDATE);
   };
 
+  const onRestoreValue = (e: any) => {
+    if (parent.current?.contains(e.target) || !isEditing) return;
+
+    setValue(value);
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", onRestoreValue);
+
+    return () => {
+      document.removeEventListener("mousedown", onRestoreValue);
+    };
+  });
+
   return (
-    <li>
+    <li ref={parent}>
       <form className="flex justify-between items-center" onSubmit={onSubmit}>
         <input
-          className={cn("outline-none transition-all", {
+          className={cn("outline-none transition-all max-w-xs w-full", {
             "border-b border-dashed border-b-black": isEditing,
             "outline-none": !isEditing,
             "line-through": isChecked,
