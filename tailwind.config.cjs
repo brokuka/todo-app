@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  darkMode: "class",
   theme: {
     extend: {
       container: {
@@ -12,6 +13,11 @@ module.exports = {
       },
       colors: {
         blackish: "rgba(0, 0, 0, 0.04)",
+        dark: "#0e141b",
+      },
+      animation: {
+        scaleIn: "normal",
+        scaleOut: "normal",
       },
     },
   },

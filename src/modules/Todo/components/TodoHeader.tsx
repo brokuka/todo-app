@@ -40,7 +40,7 @@ const TodoHeader: React.FC = (): JSX.Element => {
       <TextField
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        className="w-full"
+        className="w-full "
         placeholder="Example: watch favorite tv series"
       />
       <Button type="submit" disabled={!value.length}>

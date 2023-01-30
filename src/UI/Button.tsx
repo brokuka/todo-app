@@ -9,7 +9,7 @@ const Button: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
   return (
     <button
       className={cn(
-        "flex p-2 hover:bg-blackish disabled:cursor-not-allowed transition-colors items-center",
+        "flex p-2 hover:bg-blackish disabled:cursor-not-allowed transition-colors items-center dark:text-white dark:hover:bg-slate-800",
         className
       )}
       {...props}

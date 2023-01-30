@@ -4,6 +4,7 @@ import { Toaster } from "react-hot-toast";
 import { useAppDispatch } from "../../hooks/store";
 import { readTodo } from "../../store/todo/todo.slice";
 import { useEffect } from "react";
+import ThemeSwitcher from "../ThemeSwitcher";
 
 const Todo: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -12,13 +13,13 @@ const Todo: React.FC = (): JSX.Element => {
     const todos = window.localStorage.getItem("todos");
 
     if (todos) {
-      console.log(JSON.parse(todos));
       dispatch(readTodo(JSON.parse(todos)));
     }
   }, []);
 
   return (
     <div className="border border-blue-400 rounded-xl p-4 flex flex-col gap-6">
+      <ThemeSwitcher />
       <TodoHeader />
       <TodoBody />
       <Toaster

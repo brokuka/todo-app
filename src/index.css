@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0) rotate(90deg);
+    height: 0;
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+    height: 100%;
+  }
+}
+
+@keyframes scaleOut {
+  0% {
+    transform: scale(1) rotate(0);
+    height: 100%;
+  }
+  100% {
+    transform: scale(0) rotate(0);
+    transform-origin: center;
+    height: 0;
+  }
+}

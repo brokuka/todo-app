@@ -1,12 +1,5 @@
 import cn from "classnames";
-import {
-  FormEvent,
-  MouseEvent,
-  MouseEventHandler,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import IconButton from "../../../components/IconButton";
 import { useAppDispatch, useAppSelector } from "../../../hooks/store";
@@ -15,6 +8,7 @@ import {
   selectCheckedTodo,
   updateTodo,
 } from "../../../store/todo/todo.slice";
+import TextField from "../../../UI/TextField";
 import { TODO_MESSAGES } from "../constants/message";
 
 type Props = {
@@ -105,12 +99,16 @@ const TodoListItem: React.FC<Props> = ({ id, value, checked }): JSX.Element => {
   return (
     <li ref={parent}>
       <form className="flex justify-between items-center" onSubmit={onSubmit}>
-        <input
-          className={cn("outline-none transition-all max-w-xs w-full", {
-            "border-b border-dashed border-b-black": isEditing,
-            "outline-none": !isEditing,
-            "line-through": isChecked,
-          })}
+        <TextField
+          className={cn(
+            "outline-none transition-all max-w-xs w-full dark:text-white",
+            {
+              "border-b border-dashed border-b-black dark:border-b-white":
+                isEditing,
+              "outline-none": !isEditing,
+              "line-through": isChecked,
+            }
+          )}
           type="text"
           readOnly={!isEditing}
           onChange={(e) => setValue(e.target.value)}
