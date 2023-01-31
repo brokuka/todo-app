@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { FormEvent, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useAppDispatch, useAppSelector } from "../../../hooks/store";
@@ -43,7 +44,12 @@ const TodoHeader: React.FC = (): JSX.Element => {
         className="w-full "
         placeholder="Example: watch favorite tv series"
       />
-      <Button type="submit" disabled={!value.length}>
+      <Button
+        className={classNames({
+          "cursor-not-allowed": !value.trim().length,
+        })}
+        type="submit"
+      >
         Create
       </Button>
     </form>

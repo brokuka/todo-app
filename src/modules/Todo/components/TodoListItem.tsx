@@ -103,7 +103,7 @@ const TodoListItem: React.FC<Props> = ({ id, value, checked }): JSX.Element => {
           className={cn(
             "outline-none transition-all max-w-xs w-full dark:text-white",
             {
-              "border-b border-dashed border-b-black dark:border-b-white":
+              "border-b border-dashed border-b-black dark:border-b-blue-500":
                 isEditing,
               "outline-none": !isEditing,
               "line-through": isChecked,
