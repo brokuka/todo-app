@@ -24,6 +24,7 @@ const TodoHeader: React.FC = (): JSX.Element => {
         id: window.crypto.randomUUID(),
         value: value.trim(),
         checked: false,
+        createdAt: new Date().getTime(),
       })
     );
     setValue("");

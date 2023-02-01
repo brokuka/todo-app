@@ -8,7 +8,7 @@ const Input = forwardRef<
   return (
     <input
       className={cn(
-        "border-b border-gray-400 dark:border-white dark:text-white pb-1 outline-none hover:border-black dark:hover:border-blue-500 transition-colors bg-transparent",
+        "border-b border-gray-400 dark:border-white dark:text-white pb-1 outline-none transition-colors bg-transparent",
         className
       )}
       type="text"

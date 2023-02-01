@@ -1,5 +1,12 @@
 import cn from "classnames";
-import { FormEvent, useEffect, useRef, useState } from "react";
+import {
+  DragEvent,
+  FormEvent,
+  HTMLAttributes,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import toast from "react-hot-toast";
 import IconButton from "../../../components/IconButton";
 import { useAppDispatch, useAppSelector } from "../../../hooks/store";
@@ -15,9 +22,15 @@ type Props = {
   id: string;
   value: string;
   checked: boolean;
-};
+} & HTMLAttributes<HTMLLIElement>;
 
-const TodoListItem: React.FC<Props> = ({ id, value, checked }): JSX.Element => {
+const TodoListItem: React.FC<Props> = ({
+  id,
+  value,
+  checked,
+  className,
+  ...props
+}): JSX.Element => {
   const topicalCheckedState = useAppSelector((state) =>
     selectCheckedTodo(state, id)
   );
@@ -81,7 +94,11 @@ const TodoListItem: React.FC<Props> = ({ id, value, checked }): JSX.Element => {
   };
 
   const onRestoreValue = (e: any) => {
-    if (parent.current?.contains(e.target) || !isEditing || inputValue.length)
+    if (
+      parent.current?.contains(e.target) ||
+      !isEditing ||
+      inputValue.trim().length
+    )
       return;
 
     setValue(value);
@@ -97,7 +114,19 @@ const TodoListItem: React.FC<Props> = ({ id, value, checked }): JSX.Element => {
   });
 
   return (
-    <li ref={parent}>
+    <li
+      className={cn(
+        "active:cursor-grabbing border border-transparent",
+        className,
+        {
+          "cursor-grab": !isEditing,
+        }
+      )}
+      ref={parent}
+      /*       onMouseDown={(e) => (e.currentTarget.style.cursor = "grabbing")}
+      onMouseUp={(e) => (e.currentTarget.style.cursor = "grab")} */
+      {...props}
+    >
       <form className="flex justify-between items-center" onSubmit={onSubmit}>
         <TextField
           className={cn(
@@ -105,7 +134,7 @@ const TodoListItem: React.FC<Props> = ({ id, value, checked }): JSX.Element => {
             {
               "border-b border-dashed border-b-black dark:border-b-blue-500":
                 isEditing,
-              "outline-none": !isEditing,
+              "outline-none cursor-grab pointer-events-none": !isEditing,
               "line-through": isChecked,
             }
           )}

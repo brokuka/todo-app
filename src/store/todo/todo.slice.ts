@@ -1,7 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
-type PayloadType = { id: string; value: string; checked: boolean };
+export type PayloadType = {
+  id: string;
+  value: string;
+  checked: boolean;
+  order?: number;
+  createdAt?: number;
+  editedAt?: string;
+};
 
 type InitialStateType = {
   data: PayloadType[];
@@ -32,10 +39,13 @@ export const todoSlice = createSlice({
     deleteTodo: (state, action: PayloadAction<string>) => {
       state.data = state.data?.filter((data) => data.id !== action.payload);
     },
+    updateList: (state, action) => {
+      state.data = action.payload;
+    },
   },
 });
 
-export const { createTodo, readTodo, updateTodo, deleteTodo } =
+export const { createTodo, readTodo, updateTodo, deleteTodo, updateList } =
   todoSlice.actions;
 
 export const selectTodo = (state: RootState) => state.todo;
